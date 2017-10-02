@@ -1,0 +1,36 @@
+
+class {
+  login() {
+    axios.post('http://localhost:8080/user/login', {
+      username: this.getEl('username').value,
+      password: this.getEl('password').value
+    }).then(function(response){
+      console.log(response);
+      window.localStorage.setItem('token', response.data);
+    }).catch(function(error){
+      console.log(error);
+    })
+  }
+}
+<site-layout>
+  <@title>
+    Login
+  </@title>
+  <@content>
+    <form>
+      <div class="uk-margin uk-animation-slide-left">
+        <div class="uk-inline">
+          <span class="uk-form-icon" uk-icon="icon: user"/>
+          <input key="username" class="uk-input" type="text"/>
+        </div>
+      </div>
+      <div class="uk-margin uk-animation-slide-right">
+        <div class="uk-inline">
+          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"/>
+          <input key="password" class="uk-input" type="text"/>
+        </div>
+      </div>
+      <a class="uk-button uk-button-default" href="#" on-click('login')>Login</a>
+    </form>
+  </@content>
+</site-layout>
